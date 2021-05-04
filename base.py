@@ -26,6 +26,11 @@ def swap(obj: Any, x: str, y: str):
     return obj
 
 
+def camel_to_snake(name):
+    name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', name).lower()
+
+
 class ObjectId(bson.ObjectId):
     @classmethod
     def __get_validators__(cls):
@@ -61,6 +66,7 @@ class Model(BaseModel):
     def __init_subclass__(cls, **kwargs):
         if getattr(cls, '__tablename__', None) is None:
             setattr(cls, '__tablename__', cls.__name__.lower())
+            # setattr(cls, '__tablename__', camel_to_snake(cls.__name__))
 
 
 class CURDGeneric(Generic[T]):
