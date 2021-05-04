@@ -13,5 +13,5 @@ class User(Model):
 
     username: str
     open_id: str
-    created_at: datetime = lambda: datetime.now()
+    created_at: datetime
 
